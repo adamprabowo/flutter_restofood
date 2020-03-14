@@ -10,4 +10,5 @@ class Endpoint {
   static String baseCity = "${_baseURL}/city";
   static String register = "${_baseURL}/auth/register";
   static String login = "${_baseURL}/auth/login";
+  static String baseCart = "${_baseURL}/cart";
 }

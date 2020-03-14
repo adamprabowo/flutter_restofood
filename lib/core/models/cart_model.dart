@@ -1,34 +1,52 @@
 
+import 'dart:io';
+import 'package:dio/dio.dart';
+
 class CartModel {
-  String title;
-  int quantity;
-  int price;
+  String id;
+  String username;
+  int foods_id;
+  int qty;
+
 
   CartModel({
-    this.title, this.quantity, this.price
+    this.id, this.foods_id, this.qty, this.username
   });
 
+  //Converter dari map ke object
+  factory CartModel.fromJson(Map<String, dynamic> json) {
+    return CartModel(
+      id: json['id'].toString(),
+      username: json['username'],
+      foods_id: json['foods_id'],
+      qty: json['qty']
+    );
+  }
 
-  static List<CartModel> dummyData() {
-    var _cart = new List<CartModel>();
-    _cart.add(CartModel(
-      title: "Ayam Bakar Pedas",
-      quantity: 1,
-      price: 15000
-    ));
+  //Converter dari object ke map
+  Map<String, dynamic> toMap() {
+    var map = Map<String, dynamic>();
+		if (id != null) {
+			map['id'] = id;
+		}
+		map['username'] = username;
+		map['foods_id'] = foods_id;
+    map['qty'] = qty;
+		
+		return map;
+  }
+}
 
-    _cart.add(CartModel(
-      title: "Sate Ayam Kecap",
-      quantity: 1,
-      price: 12000
-    ));
+class CartResponse {
+  int status;
+  String message;
 
-    _cart.add(CartModel(
-      title: "Nasi Uduk",
-      quantity: 1,
-      price: 8000
-    ));
+  CartResponse({this.status, this.message});
 
-    return _cart;
+  factory CartResponse.fromJson(Map<String, dynamic> json) {
+    return CartResponse(
+      status: int.parse(json['status'].toString()),
+      message: json['message']
+    );
   }
 }
